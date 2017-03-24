@@ -53,8 +53,11 @@ class TowerOfHanoi
     #instructions for user
     puts "Welcome to the Tower of Hanoi"
     puts "Instructions:"
-    puts "Enter where you would like to move from and to in the format '1,3'"
-    puts "Enter q to quit."
+    puts "Enter where you would like to move the disk from (either rod number 1, 2 or 3)"
+    puts "Then enter where you would like to move that disk to (either rod number 1, 2, or 3)"
+    puts "You can only move one disc at a time and you cannot place a larger disc on top of a smaller one"
+    puts "You have won the game once the entire tower is moved to a different rod or type q to quit"
+
     #display starting game board
     puts game_board
 
@@ -62,18 +65,17 @@ class TowerOfHanoi
     while @moves < 7 do #eventually will be until win? or user enters q, < 7 is for testing purposes
       puts "From which rod would you like to move a disk from?"
       from = gets.chomp.to_i
+
       puts "And where would you like to move it to?"
       to = gets.chomp.to_i
+
       disk_to_move = @game_board[from - 1][0]
       #as long as user inputs are valid move disks from and to
       if is_move_valid?(from,to,disk_to_move) == true
         move_disk(from,to,disk_to_move)
       else
-        puts "that is not a valid input, please enter where you would like to move from: "
-        from = gets.chomp.to_i
-        puts "please enter a new valid move to location: "
-        to = gets.chomp.to_i
-        is_move_valid?(from,to, disk_to_move)
+        puts "That is not a valid move, please re-enter"
+        next
       end
       @moves += 1
     end
