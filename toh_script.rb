@@ -50,8 +50,8 @@ class TowerOfHanoi
 
   #check to see when the game has been won
   def win?
-    if (@game_board[1].length == @size_of_disks) || (@game_board[2] == @size_of_disks)
-      puts "You win!!"
+    if (@game_board[1].length == @size_of_disks) || (@game_board[2].length == @size_of_disks)
+      puts "You win!! You won in #{@moves} moves"
       return true
     else
       return false
@@ -98,5 +98,5 @@ class TowerOfHanoi
 
 end
 
-n = TowerOfHanoi.new(3)
+n = TowerOfHanoi.new(4)
 n.play
