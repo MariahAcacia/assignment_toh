@@ -73,24 +73,33 @@ class TowerOfHanoi
     puts game_board
 
     #get user moves from and to location, move disks
-    until win? == true do #still need to quit game if user enters  q
+    until win? == true do 
       puts "From which rod would you like to move a disk from?"
       from = gets.chomp
       if from.downcase == "q"
         break
       else
         from = from.to_i
+        if (from > 3) || (from < 1) || (from == nil)
+          puts "That is not a valid move, please re-enter"
+          next
+        end
       end
 
       puts "And where would you like to move it to?"
       to = gets.chomp
+      #logic to exit game if user enters Q or q
       if to.downcase == "q"
         break
       else
         to = to.to_i
+        if (to > 3) || (to < 1) || (to == nil)
+          puts "That is not a valid move, please re-enter"
+          next
+        end
       end
 
-      #logic to get out of game if user enters q
+      #logic to exit game if user enters Q or q
       if (from.to_s.downcase == "q") || (to.to_s.downcase == "q")
         break
       end
