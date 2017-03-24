@@ -48,12 +48,22 @@ class TowerOfHanoi
     print @rods.join("    ")
   end
 
+  #check to see when the game has been won
+  def win?
+    if (@game_board[1].length == @size_of_disks) || (@game_board[2] == @size_of_disks)
+      puts "You win!!"
+      return true
+    else
+      return false
+    end
+  end
+
 
   def play
     #instructions for user
     puts "Welcome to the Tower of Hanoi"
     puts "Instructions:"
-    puts "Enter where you would like to move the disk from (either rod number 1, 2 or 3)"
+    puts "Enter where you would like to move a disk from (either rod number 1, 2 or 3)"
     puts "Then enter where you would like to move that disk to (either rod number 1, 2, or 3)"
     puts "You can only move one disc at a time and you cannot place a larger disc on top of a smaller one"
     puts "You have won the game once the entire tower is moved to a different rod or type q to quit"
@@ -62,7 +72,7 @@ class TowerOfHanoi
     puts game_board
 
     #get user moves from and to location, move disks
-    while @moves < 7 do #eventually will be until win? or user enters q, < 7 is for testing purposes
+    until win? == true do #eventually will be until win? or user enters q, < 7 is for testing purposes
       puts "From which rod would you like to move a disk from?"
       from = gets.chomp.to_i
 
