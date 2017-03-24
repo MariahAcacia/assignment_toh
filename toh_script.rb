@@ -5,44 +5,75 @@
 #you can move only the top disk of any given stack
 #you can stack only smaller disks on larger disks. a larger disk cannot be stacked on a smaller disk
 class TowerOfHanoi
-  #instructions for user
-  puts "Welcome to the Tower of Hanoi"
-  puts "Instructions:"
-  puts "Enter where you would like to move from and to in the format '1,3'"
-  puts "Enter q to quit."
-  #prompt user to enter how many disks they would like to play with
-  print "To start, please enter how many disks would you like to play with: "
-  number_of_disks = gets.chomp.to_i
 
   def initialize(number_of_disks)
-    @number_of_disks = number_of_disks
-    @number_of_rods = [1,2,3]
+    @size_of_disks = number_of_disks
+    @game_board = [[],[],[]] #3 rods
+    @rods = [1,2,3]
+    @moves = 0
   end
 
   #game board depends on number of disks specified by user, number of disks is the number of rows
 
   def game_board
-    game_board = Array.new(@number_of_disks) { Array.new(3) }
-    #need a loop to populate the board with disks based on how many disks the user specified, base disk number of o's = number_of_disks specied by user, then one less for each higher row until top row has only one "o"
-    game_board.map { |row| row = "o" * @number_of_disks }
-  end
+    spaces = (@size_of_disks - 1)
+    iterator = 1
 
-  #prints game board, and spaces rods with enough room for how big largest disk is
-  def print_game_board
-    puts game_board
-    if @number_of_disks <= 4
-      print @number_of_rods.join("    ")
-    elsif @number_of_disks > 4 && @number_of_disks < 10
-      print @number_of_rods.join("                ")
-    else
-      print @number_of_rods.join("                            ")
+    while iterator <= @size_of_disks do
+      @game_board[0] << ("o" * iterator) + (" " * (@size_of_disks - iterator))
+      iterator += 1
     end
+    puts "Current board: "
+    puts @game_board
+    print @rods.join("      ")
   end
 
-  n = TowerOfHanoi.new(number_of_disks)
-  n.print_game_board
 
-  def user_moves
+  #get user moves
+  def get_user_moves
+    puts "Please enter move: "
+    @moves= gets.chomp.split(",").map(&:to_i)
+  end
+
+
+  #check if user input is valid before moving disks
+  def is_move_valid
+
+  end
+
+
+  #how to move disks based on user input
+  def move_disks
+    starting_index = @moves[0] - 1
+    move_to_index = @moves[1] - 1
+    disk_to_move = @game_board[starting_index][0]
+    @game_board[move_to_index].unshift(disk_to_move)
+    @game_board[starting_index].shift
+    print @game_board
+    print @rods.join("    ")
+  end
+
+
+  def play
+    #instructions for user
+    puts "Welcome to the Tower of Hanoi"
+    puts "Instructions:"
+    puts "Enter where you would like to move from and to in the format '1,3'"
+    puts "Enter q to quit."
+    #display starting game board
+    puts game_board
+    #get user moves
+    get_user_moves
+    #as long as user inputs are valid move disks from and to
+    move_disks
+    #reprint game board
+    get_user_moves
+    move_disks
+    get_user_moves
+    move_disks
   end
 
 end
+
+n = TowerOfHanoi.new(6)
+n.play
