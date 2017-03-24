@@ -52,11 +52,18 @@ class TowerOfHanoi
   #check to see when the game has been won
   def win?
     if (@game_board[1].length == @size_of_disks) || (@game_board[2].length == @size_of_disks)
-      puts "You win!! You won in #{@moves} moves"
+      puts "You win!!"
+      puts "You won in #{@moves} moves"
       return true
     else
       return false
     end
+  end
+
+  #need method to render the board properly after moves have been made
+  def render
+
+
   end
 
 
@@ -73,7 +80,7 @@ class TowerOfHanoi
     puts game_board
 
     #get user moves from and to location, move disks
-    until win? == true do 
+    until win? == true do
       puts "From which rod would you like to move a disk from?"
       from = gets.chomp
       if from.downcase == "q"
