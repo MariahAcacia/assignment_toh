@@ -13,8 +13,8 @@ class TowerOfHanoi
     @moves = 0
   end
 
-  #game board depends on number of disks specified by user, number of disks is the number of rows
 
+  #game board depends on number of disks specified by user, number of disks is the number of rows
   def game_board
     spaces = (@size_of_disks - 1)
     iterator = 1
@@ -23,6 +23,7 @@ class TowerOfHanoi
       @game_board[0] << ("o" * iterator) + (" " * (@size_of_disks - iterator))
       iterator += 1
     end
+
     puts "Current board: "
     puts @game_board
     print @rods.join("      ")
@@ -72,12 +73,28 @@ class TowerOfHanoi
     puts game_board
 
     #get user moves from and to location, move disks
-    until win? == true do #eventually will be until win? or user enters q, < 7 is for testing purposes
+    until win? == true do #still need to quit game if user enters  q
       puts "From which rod would you like to move a disk from?"
-      from = gets.chomp.to_i
+      from = gets.chomp
+      if from.downcase == "q"
+        break
+      else
+        from = from.to_i
+      end
 
       puts "And where would you like to move it to?"
-      to = gets.chomp.to_i
+      to = gets.chomp
+      if to.downcase == "q"
+        break
+      else
+        to = to.to_i
+      end
+
+      #logic to get out of game if user enters q
+      if (from.to_s.downcase == "q") || (to.to_s.downcase == "q")
+        break
+      end
+
 
       disk_to_move = @game_board[from - 1][0]
       #as long as user inputs are valid move disks from and to
