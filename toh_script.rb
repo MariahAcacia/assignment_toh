@@ -29,13 +29,6 @@ class TowerOfHanoi
   end
 
 
-  #get user moves
-  def get_user_moves
-    puts "Please enter move: "
-    @moves= gets.chomp.split(",").map(&:to_i)
-  end
-
-
   #check if user input is valid before moving disks
   def is_move_valid
 
@@ -43,12 +36,12 @@ class TowerOfHanoi
 
 
   #how to move disks based on user input
-  def move_disks
-    starting_index = @moves[0] - 1
-    move_to_index = @moves[1] - 1
-    disk_to_move = @game_board[starting_index][0]
-    @game_board[move_to_index].unshift(disk_to_move)
-    @game_board[starting_index].shift
+  def move_disks(from, to)
+    #starting_index = from - 1
+  #  move_to_index = to - 1
+    disk_to_move = @game_board[from - 1][0]
+    @game_board[to - 1].unshift(disk_to_move)
+    @game_board[from - 1].shift
     print @game_board
     print @rods.join("    ")
   end
@@ -62,18 +55,25 @@ class TowerOfHanoi
     puts "Enter q to quit."
     #display starting game board
     puts game_board
-    #get user moves
-    get_user_moves
-    #as long as user inputs are valid move disks from and to
-    move_disks
-    #reprint game board
-    get_user_moves
-    move_disks
-    get_user_moves
-    move_disks
+    #get user moves from and to location, move disks
+
+    while @moves < 7 do #eventually will be until win? or user enters q
+      puts "From which rod would you like to move a disk from?"
+      from = gets.chomp.to_i
+      puts "And where would you like to move it to?"
+      to = gets.chomp.to_i
+      #as long as user inputs are valid move disks from and to
+      move_disks(from,to)
+      @moves += 1
+    end
+
+
+
   end
+
+
 
 end
 
-n = TowerOfHanoi.new(6)
+n = TowerOfHanoi.new(3)
 n.play
