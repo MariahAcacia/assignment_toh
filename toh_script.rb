@@ -95,8 +95,8 @@ class TowerOfHanoi
           guess_again = false
           return @to
         else
-          puts @error_message
-          next
+          puts "Your move was not valid please start move over"
+          get_user_move_from
         end
       end
     end
